@@ -8,11 +8,16 @@
 
     <div>
         <h1>Password Strength Checker</h1>
-        <input type="password" id="pwd" placeholder="Enter your password">
+        <input type="password" id="password" placeholder="Enter password">
         <button onclick="checkPasswordStrength()">Check Strength</button>
         <button onclick="togglePasswordVisibility()">Show Password</button>
         <p id="result"></p>
 
+        <div id="strength-meter">
+            <div id="strength-bar"></div>
+        </div>
+
+        <p id="label"></p>
 
     </div>
 </head>
