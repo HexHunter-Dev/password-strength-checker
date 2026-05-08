@@ -19,5 +19,41 @@ h1 {
   margin: 0;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 4px solid #ffffff;
+}
+
+#strength-meter {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+  margin: 15px 0;
+  border-radius: 10px;
+  overflow: hidden;
+
+  /* Depth: Inner shadow makes the meter look recessed */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+#strength-bar {
+  height: 100%;
+  width: 0%;
+  background-color: #ff4d4d;
+  border-radius: 10px;
+  transition: width 0.3 ease-in-out, background-color 0.3s ease-in-out;
+
+  /* Depth: Slight outer shadow on the bar itself */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+#toggleBtn {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+#toggleBtn:hover {
+    background: #efefef;
 }

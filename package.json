@@ -1,4 +1,7 @@
 {
+  "name": "password-strength-checker",
+  "version": "1.0.0",
+  "type": "module",
   "dependencies": {
     "@zxcvbn-ts/core": "^3.0.4",
     "@zxcvbn-ts/language-common": "^3.0.4",

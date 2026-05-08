@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="static/style.css">
     <title>Password Strength Checker</title>
+</head>
+<body>
 
     <div>
         <h1>Password Strength Checker</h1>
-        <input type="password" id="password" placeholder="Enter password">
-        <button onclick="checkPasswordStrength()">Check Strength</button>
-        <button onclick="togglePasswordVisibility()">Show Password</button>
+        <input type="password" id="password_input" placeholder="Enter password">
+        <button id="toggleBtn">Show Password</button>
         <p id="result"></p>
 
         <div id="strength-meter">
@@ -18,12 +19,9 @@
         </div>
 
         <p id="label"></p>
-
     </div>
-</head>
-<body>
 
-    <script src="static/script.js"></script>
+    <script type="module" src="/static/script.js"></script>
     
 </body>
 </html>
