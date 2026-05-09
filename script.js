@@ -2,7 +2,6 @@ import { zxcvbn, zxcvbnOptions } from '@zxcvbn-ts/core'
 import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common'
 import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en'
 
-// 1. Initialize Options IMMEDIATELY
 const zxcvbn_options = {
   translations: zxcvbnEnPackage.translations,
   graphs: zxcvbnCommonPackage.adjacencyGraphs,
@@ -13,33 +12,52 @@ const zxcvbn_options = {
 }
 zxcvbnOptions.setOptions(zxcvbn_options)
 
-// 2. Wrap DOM logic to ensure elements are loaded
 window.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('password_input');
     const bar = document.getElementById('strength-bar');
-    const label = document.getElementById('label');
+    const strengthlabel = document.getElementById('strength-label');
     const toggleBtn = document.getElementById('toggleBtn');
+    
+    // Add this to your HTML: <div id="warning-msg"></div>
+    const warningMsg = document.getElementById('warning-msg');
 
-    // Debugging: This will tell you in the console if an ID is misspelled
-    if (!input || !bar || !label || !toggleBtn) {
-        console.error("Missing HTML elements! Check your IDs.");
+    // Fixed the 'label' vs 'strengthlabel' bug in your check
+    if (!input || !bar || !strengthlabel || !toggleBtn) {
+        console.error("Missing HTML elements!");
         return;
     }
 
     input.addEventListener("input", () => {
-        const result = zxcvbn(input.value);
-        const score = result.score;
+        const val = input.value;
+        if (!val) {
+            bar.style.width = "0%";
+            strengthlabel.textContent = "";
+            if (warningMsg) warningMsg.style.display = "none";
+            return;
+        }
 
-        // Visual updates
+        const result = zxcvbn(val);
+        const score = result.score;
+        const warning = result.feedback.warning;
+
+        // Bar logic
         const percent = (score / 4) * 100;
         bar.style.width = percent + "%";
         
-        // Dynamic colors
-        const colors = ["#ff4d4d", "#ffa64d", "#ffff4d", "#b3ff66", "#33cc33"];
+        // Colors matching your Midnight Navy vibe
+        const colors = ["#f87171", "#fb923c", "#fbbf24", "#818cf8", "#34d399"];
         bar.style.backgroundColor = colors[score];
 
         const labels = ["Very weak", "Weak", "Okay", "Good", "Strong"];
-        label.textContent = labels[score];
+        strengthlabel.textContent = labels[score];
+
+        // --- THE PYTHON WARNING LOGIC ---
+        if (warning && warningMsg) {
+            warningMsg.textContent = `WARNING: [${warning}]`;
+            warningMsg.style.display = "block";
+        } else if (warningMsg) {
+            warningMsg.style.display = "none";
+        }
     });
 
     toggleBtn.addEventListener('click', () => {

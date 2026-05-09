@@ -3,25 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/style.css">
+    
+    <meta
+        http-equiv="Content-Security-Policy"
+        content="
+            default-src 'self';
+            script-src 'self';
+            style-src 'self' https://fonts.googleapis.com 'unsafe-inline';
+            style-src-elem 'self' https://fonts.googleapis.com;
+            font-src 'self' https://fonts.gstatic.com;
+            img-src 'self' data:;
+        "
+    >
+
     <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div>
+    <div class="container">
         <h1>Password Strength Checker</h1>
-        <input type="password" id="password_input" placeholder="Enter password">
+        
+        <input
+            type="password"
+            id="password_input"
+            placeholder="Enter password"
+        >
+        
         <button id="toggleBtn">Show Password</button>
-        <p id="result"></p>
 
         <div id="strength-meter">
             <div id="strength-bar"></div>
         </div>
 
-        <p id="label"></p>
+        <p id="strength-label"></p>
+        
+        <div id="warning-msg"></div>
     </div>
 
-    <script type="module" src="/static/script.js"></script>
+    <script type="module" src="script.js"></script>
     
 </body>
 </html>
