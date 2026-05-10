@@ -1,17 +1,3 @@
-import { zxcvbn, zxcvbnOptions } from '@zxcvbn-ts/core'
-import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common'
-import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en'
-
-const zxcvbn_options = {
-  translations: zxcvbnEnPackage.translations,
-  graphs: zxcvbnCommonPackage.adjacencyGraphs,
-  dictionary: {
-    ...zxcvbnCommonPackage.dictionary,
-    ...zxcvbnEnPackage.dictionary,
-  },
-}
-zxcvbnOptions.setOptions(zxcvbn_options)
-
 window.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('password_input');
     const bar = document.getElementById('strength-bar');
