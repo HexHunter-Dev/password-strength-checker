@@ -1,29 +1,38 @@
 # Password Strength Checker v1
 
-A simple web application that analyses password strength based on common security rules. Built to practise JavaScript DOM manipulation and input validation.
+A lightweight web application that evaluates password strength in real time using JavaScript and rule-based validation.
+
+
+## Live Demo
+https://hexhunter-dev.github.io/password-strength-checker/
+
 
 ## About
 
 This project was built as part of my web portfolio to practise my JavaScript skills and gain experience building interactive browser applications without external frameworks.
 
 
+
 ## Features
 
-- Live password strength checking
-- Detects:
-	- Minimum length
-	- Uppercase letters
-	- Lowercase letters
-	- Numbers
-	- Special characters
-- Colour-coded strength indicator
-- Responsive layout
+- Real-time password strength evaluation
+- Rule-based validation system:
+  - Minimum length check
+  - Uppercase detection
+  - Lowercase detection
+  - Numeric character detection
+  - Special character detection
+- Visual strength indicator (colour-coded)
+- Responsive UI design
 
 ## Screenshot
 
+Real-time password strength feedback.
+
+
 ![Password Strength Checker](images/screenshot.png)
 
-## Languages Used
+## Tech Stack
 
 ![HTML](https://img.shields.io/badge/HTML-5-orange)
 ![CSS](https://img.shields.io/badge/CSS-3-blue)
@@ -60,13 +69,12 @@ This project estimates password strength using predefined rules. It does not cal
 
 ## What I learned
 
-This project helped me practise:
-	
 - DOM manipulation
 - Event listeners
 - String validation
 - Regular expressions
 - Writing maintainable JavaScript
+
 
 ## License
 MIT
