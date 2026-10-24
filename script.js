@@ -2,21 +2,27 @@ window.addEventListener('DOMContentLoaded', () => {
     const input = document.getElementById('password_input');
     const bar = document.getElementById('strength-bar');
     const strengthlabel = document.getElementById('strength-label');
-    const toggleBtn = document.getElementById('toggleBtn');
-    
-    // Add this to your HTML: <div id="warning-msg"></div>
     const warningMsg = document.getElementById('warning-msg');
+    
+    const slashLine = document.querySelector('.slash-line');
+    const visibilityIcon = document.getElementById('visibility-off');
 
-    // Fixed the 'label' vs 'strengthlabel' bug in your check
-    if (!input || !bar || !strengthlabel || !toggleBtn) {
+    if (!input || !bar || !strengthlabel || !visibilityIcon) {
         console.error("Missing HTML elements!");
         return;
     }
 
+    // Calculate dynamic length of the slash line for the drawing animation
+    if (slashLine) {
+        const length = slashLine.getTotalLength();
+        slashLine.style.setProperty('--line-length', `${length}px`);
+    }
+
+    // Strength Checker Logic (zxcvbn)
     input.addEventListener("input", () => {
         const val = input.value;
         if (!val) {
-            bar.style.width = "0%";
+            bar.style.width = "0%`";
             strengthlabel.textContent = "";
             if (warningMsg) warningMsg.style.display = "none";
             return;
@@ -26,18 +32,15 @@ window.addEventListener('DOMContentLoaded', () => {
         const score = result.score;
         const warning = result.feedback.warning;
 
-        // Bar logic
         const percent = (score / 4) * 100;
         bar.style.width = percent + "%";
         
-        // Colors matching your Midnight Navy vibe
         const colors = ["#f87171", "#fb923c", "#fbbf24", "#818cf8", "#34d399"];
         bar.style.backgroundColor = colors[score];
 
         const labels = ["Very weak", "Weak", "Okay", "Good", "Strong"];
         strengthlabel.textContent = labels[score];
 
-        // --- THE PYTHON WARNING LOGIC ---
         if (warning && warningMsg) {
             warningMsg.textContent = `WARNING: [${warning}]`;
             warningMsg.style.display = "block";
@@ -46,9 +49,15 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    toggleBtn.addEventListener('click', () => {
+    // Toggle Password Visibility & Animate Slash Line On/Off
+    visibilityIcon.addEventListener('click', () => {
         const isPassword = input.type === "password";
         input.type = isPassword ? "text" : "password";
-        toggleBtn.textContent = isPassword ? "Hide Password" : "Show Password";
+        
+        if (slashLine) {
+            // If input becomes "text" (isPassword was true), remove 'hidden' so the slash draws.
+            // If input becomes "password" (isPassword was false), add 'hidden' so the slash undraws.
+            slashLine.classList.toggle('hidden', isPassword);
+        }
     });
 });

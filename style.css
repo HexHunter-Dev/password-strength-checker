@@ -5,24 +5,22 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  /* Midnight Navy Gradient */
   background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
   font-family: "Poppins", sans-serif;
   background-attachment: fixed;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .container {
   width: 600px;
   padding: 40px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.03); /* Frosted glass effect */
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-  
-  /* Forces the vertical stack */
   display: flex;
   flex-direction: column;
   align-items: center; 
@@ -37,30 +35,65 @@ h1 {
   text-align: center;
 }
 
+/* --- Container Handles the Expanding Animation --- */
+
+.icon-container {
+  position: relative;
+  width: 30%; /* Starts small */
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* When you focus inside the container, it expands smoothly */
+.icon-container:focus-within {
+  width: 75%; 
+}
 
 #password_input {
-  width: 25%; /* Starting width */
-  max-width: 500px;
-  padding: 12px 15px;
+  width: 100%; /* Fills the expanding container completely */
+  padding: 12px 45px 12px 16px; /* Right padding leaves room so text doesn't hit the eye icon */
   border-radius: 10px;
   border: 1px solid #334155;
   background: #1e293b;
   color: #f8fafc;
   font-family: "Poppins", sans-serif;
   font-size: 0.9rem;
-  text-align: center;
   outline: none;
-  
-  /* COMBINED TRANSITION: Handles width, border, and glow simultaneously */
-  transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
-              border-color 0.3s ease, 
-              box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 #password_input:focus {
-  width: 80%; /* S T R E T C H */
   border-color: #6366f1;
   box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+#visibility-off {
+  position: absolute;
+  right: 14px; /* Locked right inside the input box edge */
+  cursor: pointer;
+  color: #f8fafc;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+#visibility-off:hover {
+  color: #818cf8;
+}
+
+/* --- SVG Slash Animation --- */
+
+.slash-line {
+  stroke-dasharray: var(--line-length);
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.3s ease-in-out;
+  fill: #f8fafc;
+  stroke-width: 2;
+}
+
+.slash-line.hidden {
+  stroke-dashoffset: var(--line-length);
 }
 
 /* --- Toggle Button --- */
@@ -77,19 +110,17 @@ h1 {
   font-family: "Poppins", sans-serif;
   font-size: 0.85rem;
   font-weight: 500;
-  
-  /* Hover/Active transition */
   transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
 #toggleBtn:hover {
   background: #334155;
   border-color: #475569;
-  transform: scale(1.05); /* size-up effect */
+  transform: scale(1.05);
 }
 
 #toggleBtn:active {
-  transform: scale(0.95); /* size-down effect */
+  transform: scale(0.95);
 }
 
 /* --- Strength Meter --- */
@@ -111,7 +142,7 @@ h1 {
   transition: width 0.4s ease-in-out, background-color 0.3s ease;
 }
 
-/* --- Descriptive Status Classes --- */
+/* --- Status & Warnings --- */
 .status-critical { background-color: #f87171 !important; }
 .status-weak     { background-color: #fb923c !important; }
 .status-warn     { background-color: #fbbf24 !important; }
@@ -130,7 +161,7 @@ h1 {
   margin-top: 20px;
   font-size: 0.9rem;
   font-weight: 500;
-  color: #fda4af; /* Brighter rose for readability */
+  color: #fda4af; 
   text-shadow: 0 0 8px rgba(251, 113, 133, 0.3);
   padding: 10px;
   text-align: center;
